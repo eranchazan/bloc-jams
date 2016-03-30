@@ -81,10 +81,20 @@ var albumFurious7 = {
 var findParentByClassName = function(element, targetClass) {
 	if(element) {
 	var currentParent = element.parentElement
-	while(currentParent.className != targetClass) {
+	if(currentParent) {
+	while(currentParent.className && currentParent.className != targetClass) {
 		 currentParent = currentParent.parentElement;
 	}
+      if (currentParent.className == targetClass)
          return currentParent
+      else {
+      	alert("No parent with that class found.")
+      }
+	}
+	else {
+      alert("No parent found.");
+	}
+	elsif(currentParent)
 	} 
 };
 
