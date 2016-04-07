@@ -196,13 +196,14 @@ var previousSong = function() {
   
   var $previousButton = $('.main-controls .previous');
   var $nextButton = $('.main-controls .next');
- 
+  var $playerBarPauseButton = $('.main-controls .play-pause'); 
+
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso); 
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
     });
-     
+     $playerBarPauseButton.click(togglePlayFromPlayerBar);
     var albums = [albumPicasso, albumMarconi, albumFurious7]
     var i = 1;
    albumImage.addEventListener('click', function(event) {
@@ -213,6 +214,20 @@ ion-play
             index = 0
         }
    });
+   var togglePlayFromPlayerBar = function() {
+    
+     if(curremtSoundFile.isPaused) {
+        $currentlyPlayingCell.html(playerBarPauseButton);
+        $(this).html(playerBarPauseButton);
+        curremtSoundFile.play();
+     } else if (curremtSoundFile){
+        $currentlyPlayingCell.html(playerBarPlayButton);
+        $(this).html(playerBarPlayButton)
+        curremtSoundFile.pause();
+     }
+
+   };
+   
  };
 
 
