@@ -5,7 +5,7 @@
         '  <tr class="album-view-song-item">'
       + ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
  
@@ -79,6 +79,8 @@
      $albumReleaseInfo.text(album.year + ' ' + album.label);
      $albumImage.attr('src', album.albumArtUrl);
   
+
+
   var updatePlayerBarSong = function() {
     $('.currently-playing .song-name').text(song(songNumber).title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
@@ -87,6 +89,7 @@
 
 console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof setSong(songNumber));
 };
+setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length);
   }
     var nextSong = function() {
     
@@ -101,7 +104,29 @@ console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlaying
     if (currentSongIndex >= currentAlbum.songs.length) {
         currentSongIndex = 0;
     }
-    
+     
+     var setCurrentTimeInPlayerBar = function(currentTime) {
+     var $currentTimeElement= $('.seek-control .current-time')
+          $currentTimeElement.text(filterTimeCode(currentTime);
+ };
+
+ var setTotalTimeInPlayerBar = function(totalTime) {
+              var $totalTimeElement = $('.seek-control .total-time')
+              $totalTimeElement.text(totalTime)
+ };
+
+ var filterTimeCode = function(timeInSeconds) {
+        var seconds = Numbers.parseFloat(timeInSeconds);
+        var wholeSeconds =Math.floor(seconds);
+        var minutes = Math.floor(wholeSeconds/60);
+        var remainingSeconds = wholeSeconds%60;
+        var output = minutes + ":" ;
+            if(remainingSeconds < 10) {
+                output += '0';
+            }
+        var output += remainingSeconds
+        return output;
+ };
     // Set a new current song
     setSong(songNumber) = currentSongIndex + 1;
         currentSoundFile.play();
@@ -203,7 +228,9 @@ var previousSong = function() {
              // #11
              var seekBarFillRatio = this.getTime() / this.getDuration();
              var $seekBar = $('.seek-control .seek-bar');
- 
+             var currentTime = this.getTime();
+             var songLength = this.getDuration();
+             setCurrentTimeInPlayerBar(filterTimeCode(currentTime)
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
      }
